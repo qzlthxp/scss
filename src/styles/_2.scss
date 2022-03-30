@@ -1,0 +1,97 @@
+/*
+  scss 具有嵌套的规则，可以让你少写一些重复的选择器
+
+  例如：
+  <div class="content">
+    <article>
+      <h1>title</h1>
+      <p>paragraph</p>
+    </article>
+    <aside>aside</aside>
+  </div>
+
+  css的写法
+    .content article h1 { color: #333 }
+    .content article p { margin-bottom: 1.4em }
+    .content aside { background-color: #EEE }
+
+
+  使用scss嵌套写法
+  .content {
+    article {
+      h1 {color: #333}
+      p {margin-bottom: 1.4em}
+    }
+    
+    aside {background-color: #EEE}
+  }  
+  */
+.content {
+  h1 {
+    color: #333;
+  }
+  p {
+    margin-top: 30px;
+  }
+}
+
+/*
+父选择器的标识符 &
+article a {
+  color: blue;
+  :hover {
+    color: red;
+  }
+}
+上面这个样式解析之后为
+article a { color: blue; }
+article a :hover { color: red; }
+意思是article元素内所有a标签的子元素 hover状态时
+为红色
+
+article a {
+  color: blue;
+  &:hover {
+    color: red;
+  }
+}
+
+添加父选择器 &，解析时不会进行拼接而是将&替换为选择器
+
+*/
+
+/*
+第一个选择器会选择article下的所有命中section选择器的元素，
+不会你的section嵌套的有多深
+
+第二个只会选择article下紧跟着的子元素中命中section选择器的元素
+
+<article>
+  <!--这一个会添加边框并且设置外边距为5px-->
+  <section>
+      <!--这一个只会添加边框-->
+    <section></section>
+  </section>
+</article>
+*/
+article section {
+  margin: 5px;
+}
+article > section {
+  border: 1px solid #ccc;
+}
+
+// 除了选择器属性同样可以嵌套
+nav {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+}
+// 等价于
+nav {
+  border: {
+    style: solid;
+    width: 1px;
+    color: #ccc;
+  }
+}

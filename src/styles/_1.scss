@@ -1,0 +1,23 @@
+//
+/**
+使用 $ 加上变量名 来声明scss的变量
+
+scss的变量名可以与css种属性名称、选择器名称相同，
+虽然相同也不会造成污染
+
+使用时在需要的位置写上变量
+color: $highlight-color;
+
+声明变量是用中划线-还是下划线_ 这两个都可以
+$link-color和$link_color其实指向的是同一个变量
+
+
+*/
+
+$highlight-color: #f90;
+
+$basic-border: 1px solid black;
+
+$plain-font: Avenir, Helvetica, Arial, sans-serif;
+
+$app: center; 

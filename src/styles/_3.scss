@@ -1,0 +1,71 @@
+/*
+sass局部文件的文件名以下划线开头，
+这样sass就不会在编译时单独把这个文件输出css，
+而是把这个文件用作导入，同时在导入局部文件的时候
+可以省略下划线也可以省略文件后缀
+
+例如：你想导入 themes/_night-sky.scss这个局部文件
+你只需要这样写 @import 'themes/night-sky'
+
+局部文件可以被多个不同的文件引用,有时候引入局部文件，
+我们可能会对部分样式稍作修改，scss提供了一个功能就是默认变量值
+*/
+
+//默认变量值
+
+// 重复声明后面会覆盖前面的
+$link-color: blue;
+$link-color: red;
+a {
+  color: $link-color;
+}
+/*
+这可能并不是你想要的结果，
+假如你写了一个可被他人通过@import导入的sass库文件，
+你可能希望导入者可以定制修改sass库文件中的某些值。
+使用sass的!default标签可以实现这个目的。
+它很像css属性中!important标签的对立面，
+不同的是!default用于变量，
+含义是：如果这个变量被声明赋值了，
+那就用它声明的值，否则就用这个默认值
+
+如下：，如果用户在导入你的sass局部文件之前声明了一个
+$fancybox-width变量，那么你的局部文件中对$fancybox-width
+赋值400px的操作就无效。如果用户没有做这样的声明，
+则$fancybox-width将默认为400px。
+*/
+$fancybox-width: 400px !default;
+.fancybox {
+  width: $fancybox-width;
+}
+
+// 嵌套导入
+/*
+一个名为_blue-theme.scss的局部文件，内容如下：
+aside {
+  background: blue;
+  color: white;
+}
+
+然后把它导入到一个CSS规则内
+.blue-theme {@import "blue-theme"}
+
+生成的结果跟你直接在.blue-theme选择器内写_blue-theme.scss文件的内容完全一样。
+
+.blue-theme {
+  aside {
+    background: blue;
+    color: #fff;
+  }
+}
+*/
+
+/*
+在sass中使用@import 时，sass会尝试找到对应的sass文件，
+并导入进来，但在下列三种情况下会生成原生的css@import
+
+- 被导入的文件的名字以 .css 结尾 @import 'base.css'
+- 被导入的文件名字时一个URL地址  @import 'http://www.baidu.com'
+- 被导入的文件的名字是css的url()值 @import url('...')
+*/
+
